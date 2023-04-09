@@ -1,8 +1,10 @@
 import React from 'react'
 import './LeftSidebar.css'
 import { NavLink } from 'react-router-dom'
-import Globe from '../../assets/globe_planet.svg'
+// import Globe from '../../assets/globe_planet.svg'
 /*difference b/w link and navlink is, navlink is used in nav bar so it's called so.*/
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers , faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 
 const LeftSidebar = () => {
   return (
@@ -14,7 +16,7 @@ const LeftSidebar = () => {
         <div className='side-nav-div'>
           <div><p>Public</p></div>
           <NavLink to="/Questions" className="side-nav-links" activeClassName='active' >
-            <img src={Globe} alt="Globe" />
+          <FontAwesomeIcon icon={ faEarthAmericas} fade />
             <p style={{paddingLeft:"10px"}}>Questions</p>
           </NavLink>
           <NavLink to="/Tags" className="side-nav-links" activeClassName='active' style={{paddingLeft:'40px'}}>
@@ -23,6 +25,11 @@ const LeftSidebar = () => {
           <NavLink to="/Users" className="side-nav-links" activeClassName='active' style={{paddingLeft:'40px'}}>
             <p>Users</p>
           </NavLink>
+          <br></br> 
+          <a href="https://stackoverflowcommunity.netlify.app" className="side-nav-links">
+            <FontAwesomeIcon icon={faUsers} beatFade />
+            <p style={{paddingLeft:"10px" }}>Community</p> 
+          </a>
         </div>
       </nav>
 

@@ -43,3 +43,15 @@
     background-color: rgb(225, 225, 225);
     border-right: solid 3px #ef8236;
 }
+
+.side-nav-links:last-child {
+    background-color: #FEE1B9;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 5px ;
+    font-size: 13px; 
+    margin-left: 1px;
+    width: 100px;
+    height: 30px;
+}
