@@ -2,6 +2,9 @@ import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 
+import ReCAPTCHA from "react-google-recaptcha";
+// npm i react-google-recaptcha
+
 import './Auth.css'
 import icon from '../../assets/icon3.png'
 import AboutAuth from './AboutAuth'
@@ -18,6 +21,10 @@ const Auth = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    function onChange(value) {
+        console.log("Captcha value:", value);
+    }
+
     const handleSwitch = () => {
         setIsSignup(!isSignup)
     }
@@ -25,8 +32,10 @@ const Auth = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         // console.log({ email, name, password })
-        if(!email && !password){
-            alert("Please enter an email and password to continue!")
+        
+        if (!email && !password) {
+            alert("Please enter an email and password to continue!");
+            return;
         }
         // else{
         //     if(!password && email){
@@ -37,15 +46,17 @@ const Auth = () => {
         //         }
         //     }
         // }
-        if(isSignup){
-            if(!name){
-                alert("Enter a name to continue")
-            }
-            dispatch(signup({ name, email, password }, navigate))
-        }else{
-            dispatch(login({ email, password }, navigate))
+        
+        if (isSignup && !name) {
+            alert("Enter a name to continue");
+            return;
         }
-    }
+        if (isSignup) {
+            dispatch(signup({ name, email, password }, navigate));
+        } else {
+            dispatch(login({ email, password }, navigate));
+        }
+    };
 
     return (
         <section className='auth-section'>
@@ -90,6 +101,12 @@ const Auth = () => {
                             </label>
                         )
                     }
+
+                    <ReCAPTCHA 
+                        style={{ display: "flex", justifyContent: "center" }}
+                        sitekey="6LdlQV0lAAAAAD_vME3JuTCvbGJPn3xYLaSKJWA1"
+                        onChange={onChange}
+                    />
 
                     <button type='submit' className='auth-btn'>{ isSignup ? 'Sign up': 'Log in' }</button>
                     {

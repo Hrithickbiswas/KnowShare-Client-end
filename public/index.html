@@ -1,19 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+    <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/../favicon.ico" />
+    <link rel="stylesheet" href="./style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
-      name="description"
-      content="Web site created using create-react-app"
+        name="description"
+        content="Web site created using create-react-app"
     />
-
+    
     <title>Stack Overflow Clone</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+
+    <!--	add firebase SDK-->
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-auth-compat.js"></script>
+
+    <!-- reCaptcha google link -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ STATIC_KEY }}"></script>
+    <!-- reCaptcha script -->
+    <script>
+        function onSubmit(token) {
+            console.log('reCAPTCHA token:', token); 
+            var formData = new FormData();
+            formData.append('message', document.getElementById('field').value);
+            formData.append('token', token);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the chatbot response
+            })
+            .catch(error => console.error(error));
+        }
+
+        
+            function validate(event) {
+            event.preventDefault();
+            if (!document.getElementById('field').value) {
+                alert("You must add text to the required field");
+            } else {
+                grecaptcha.execute();
+            }
+        }
+    
+        function onload() {
+            var element = document.getElementById('submit');
+            element.onclick = validate;
+            }
+        </script>
+
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+        <div class="container">
+        <div class="chatbox">
+            <div class="chatbox__support">
+
+                <div class="chatbox__header">
+                    <div class="chatbox__image--header">
+                        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                    </div>
+
+                    <div class="chatbox__content--header">
+                        <h4 class="chatbox__heading--header">Chat support</h4>
+                        <p class="chatbox__description--header">Hi. My name is Venesa. How can I help you?</p>
+                    </div>
+                </div>
+
+                <div class="chatbox__messages">
+                    <div class="container">
+                        <div id="sender">                        
+                            <input type="text" id="number" placeholder="+91..">
+                            <div id="recaptcha-container"></div>
+                            <input type="button" id="send_otp" value="Send OTP" onClick="phoneAuth()">
+                        </div>
+                        <div id="verifier" style="display: none">
+                            <input type="text" id="verificationcode" placeholder="OTP Code">
+                            <input type="button" id="verify" value="Verify" onClick="codeverify()">
+                            <div class="p-conf">Number Verified</div>
+                            <div class="n-conf">OTP ERROR</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chatbox__footer">
+                    <input type="text" id="field" name="field" placeholder="Say hello to Venesa...">
+                    <div id="recaptcha" class="g-recaptcha"
+                        data-sitekey="{{ STATIC_KEY }}"
+                        data-callback="onSubmit"
+                        data-size="invisible">
+                    </div>
+    
+                    <button class="chatbox__send--footer send__button" id="submit">
+                        <img src="https://img.icons8.com/material-rounded/24/000000/sent.png"/>
+                    </button>
+                </div>
+
+            </div>
+            <div class="chatbox__button">
+                <button>
+                    <img src="./images/chatbox-icon.svg" />
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+
+    <script>
+        $SCRIPT_ROOT = { request,script_root,tojson };
+    </script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+    <script>onload();</script>
+
+    <!-- OTP SCRIPT -->
+    <script>
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        
+        const firebaseConfig = {
+        apiKey: "AIzaSyBO-VCnK_1s2SX_DAGBCcFPWZx_OjReNuY",
+        authDomain: "{{ AUTH_DOMAIN }}",
+        projectId: "{{ PROJECT_ID }}",
+        storageBucket: "{{ STORAGE_BUCKET }}",
+        messagingSenderId: "{{ MESSAGING_SENDER_ID }}",
+        appId: "{{ APP_ID }}",
+        measurementId: "{{ MEASUREMENT_ID }}"
+    };
+    
+        firebase.initializeApp(firebaseConfig);
+    render();
+    function render(){
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+        recaptchaVerifier.render();
+    }
+        // function for send message
+    function phoneAuth(){
+        var number = document.getElementById('number').value;
+        firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function(confirmationResult){
+            window.confirmationResult = confirmationResult;
+            coderesult = confirmationResult;
+            document.getElementById('sender').style.display = 'none';
+            document.getElementById('verifier').style.display = 'block';
+        }).catch(function(error){
+            alert(error.message);
+        });
+    }
+        // function for code verify
+    function codeverify(){
+        var code = document.getElementById('verificationcode').value;
+        coderesult.confirm(code).then(function(){
+            document.getElementsByClassName('p-conf')[0].style.display = 'block';
+            document.getElementsByClassName('n-conf')[0].style.display = 'none';
+            setTimeout(() => {
+                alert('hold on you will be still under security surveillance our aim is to make this website secure and safe.');
+                document.getElementById('verifier').style.display = 'none';
+                    }, 1000);
+    
+        }).catch(function(){
+            document.getElementsByClassName('p-conf')[0].style.display = 'none';
+            document.getElementsByClassName('n-conf')[0].style.display = 'block';
+        })
+    }
+    </script>
+    
+    </body>
 </html>
