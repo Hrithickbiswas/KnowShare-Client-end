@@ -9,17 +9,17 @@ const Widget = () => {
   return (
     <div className='Widget'>
 
-      <h4>The Overflow Blog</h4>
+      <h4>The KnowShare Blog</h4>
       <div className='right-side-div-1'>
 
         <div className='right-side-div-2'>
           <img src={pen} alt="pen" width={17}/>
-          <p>The AI that writes music from text (Ep. 535)</p>
+          <p>A conversation with the folks building Google’s AI models and I/O releases...</p>
         </div>
         
         <div className='right-side-div-2'>
           <img src={pen} alt="pen" width={17}/>
-          <p>Engineering’s hidden bottleneck: pull requests</p>
+          <p>Stung by OWASP? Chatting with the creator of the most popular web app scanner...</p>
         </div>
       </div>
 
@@ -28,12 +28,12 @@ const Widget = () => {
 
         <div className='right-side-div-2'>
           <img src={comment} alt="comment" width={17}/>
-          <p>Accessibility Update: Colors</p>
+          <p>We are updating our Code of Conduct and we would like your feedback</p>
         </div>
 
         <div className='right-side-div-2'>
           <img src={blackLogo} alt="blacklogo" width={17}/>
-          <p>Collectives: The next iteration</p>
+          <p>Take the 2023 Developer Survey</p>
         </div>
 
         <div className='right-side-div-2'>
@@ -43,7 +43,7 @@ const Widget = () => {
         
         <div className='right-side-div-2'>
           <img src={blackLogo} alt="blacklogo" width={17}/>
-          <p>The [balance] tag is being burninated</p>
+          <p>The [connect] tag is being burninated</p>
         </div>
       </div>
 
