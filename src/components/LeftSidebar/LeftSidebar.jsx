@@ -26,7 +26,7 @@ const LeftSidebar = () => {
             <p>Users</p>
           </NavLink>
           <br></br> 
-          <a href="https://stackoverflowcommunity.netlify.app" className="side-nav-links">
+          <a href="https://knowsharecommunity.netlify.app/" className="side-nav-links">
             <FontAwesomeIcon icon={faUsers} beatFade />
             <p style={{paddingLeft:"10px" }}>Community</p> 
           </a>

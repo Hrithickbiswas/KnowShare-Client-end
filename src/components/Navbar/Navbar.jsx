@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import decode from 'jwt-decode'
 
-import logo from '../../assets/logo2.svg'
+import logo from '../../assets/knowshare4.svg'
 import search from '../../assets/search_icon.svg'
 import Avatar from '../../components/Avatar/Avatar'
 // import Button from '../../components/Button/Button'
@@ -44,7 +44,7 @@ useEffect(() => {
           <Link to = '/' className='nav-item nav-btn' >About</Link>
           <Link to = '/' className='nav-item nav-btn' >Products</Link>
           <Link to = '/' className='nav-item nav-btn' >For Teams</Link>
-          <a href="https://stackoverflowpayment.netlify.app/" className="nav-item nav-btn">
+          <a href="https://knowshare-plans.netlify.app/" className="nav-item nav-btn">
             Plans
           </a>
           <form >
