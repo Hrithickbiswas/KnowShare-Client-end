@@ -6,7 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 // npm i react-google-recaptcha
 
 import './Auth.css'
-import icon from '../../assets/icon3.png'
+import icon from '../../assets/owl.png'
 import AboutAuth from './AboutAuth'
 import { signup, login } from '../../actions/auth'
 
